@@ -228,8 +228,11 @@ public class db {
 				connect=DriverManager.getConnection(sConnStr,nsa,nmm);
 				Statement stmt=connect.createStatement();
 				rs=stmt.executeQuery(sql);
-				rs.next();
-				String dir = rs.getString(1);
+				String dir="";
+				while(rs.next()){
+					dir = rs.getString(1);
+				}
+
 				return dir;
 			}catch(Exception e){
 				e.printStackTrace();
