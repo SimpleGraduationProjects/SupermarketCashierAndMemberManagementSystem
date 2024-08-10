@@ -17,15 +17,15 @@ import com.util.Constant;
 
 public class db {
 	 //private String dbDriver="com.microsoft.jdbc.sqlserver.SQLServerDriver";
-	// private String sConnStr = "jdbc:microsoft:sqlserver://localhost:1433;databasename=ssmcssyyhyglhsg0705W8CC"; 
-	 
+	// private String sConnStr = "jdbc:microsoft:sqlserver://localhost:1433;databasename=ssmcssyyhyglhsg0705W8CC";
+
 	 private String dbDriver="com.mysql.jdbc.Driver";
-	 private String sConnStr = "jdbc:mysql://localhost:3306/graduation_ssmtemp?useUnicode=true&amp;amp;amp;amp;amp;characterEncoding=gb2312";
-	
+	 private String sConnStr = "jdbc:mysql://localhost:3306/graduation_61_ssmtemp?useUnicode=true&amp;amp;amp;amp;amp;characterEncoding=gb2312";
+
 	 // private String dbDriver="net.sourceforge.jtds.jdbc.Driver";
-	// private String sConnStr = "jdbc:jtds:sqlserver://127.0.0.1:1433;databaseName=ssmcssyyhyglhsg0705W8CC"; 
-	 
-	
+	// private String sConnStr = "jdbc:jtds:sqlserver://127.0.0.1:1433;databaseName=ssmcssyyhyglhsg0705W8CC";
+
+
 	 private String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 	 private List list;
 	  public Connection connect = null;
@@ -34,15 +34,15 @@ public class db {
 	  public String nmm="123456";
 	  public db() {
 	    try {
-	     
-	      Class.forName(dbDriver).newInstance(); 
+
+	      Class.forName(dbDriver).newInstance();
 	    }
 	    catch (Exception ex) {
 	      System.out.println("12121");
 	    }
 	  }
-	
-	  
+
+
 	  public ResultSet executeQuery(String sql) {
 			try{
 				connect=DriverManager.getConnection(sConnStr,nsa,nmm);
@@ -53,12 +53,12 @@ public class db {
 			}
 			return rs;
 		}
-	  
-	  
+
+
 	  public String hsggetoption(String ntable,String nzd){
 			StringBuffer imgStr = new StringBuffer();
 			imgStr.append("");
-			
+
 			String sql="";
 			sql="select "+nzd+" from "+ntable+" order by id desc";
 			System.out.print(sql);
@@ -66,7 +66,7 @@ public class db {
 				connect=DriverManager.getConnection(sConnStr,nsa,nmm);
 				Statement stmt=connect.createStatement();
 				rs=stmt.executeQuery(sql);
-			
+
 				while(rs.next()){
 					imgStr.append("<option value='"+rs.getString(1)+"'>"+rs.getString(1)+"</option>\n");
 				}
@@ -80,7 +80,7 @@ public class db {
 			StringBuffer imgStr = new StringBuffer();
 			imgStr.append("");
 			imgStr.append("<option value=''>请选择</option>\n");
-			
+
 			String sql="";
 			sql="select "+nzd+" from "+ntable+" order by id desc";
 			try{
@@ -99,7 +99,7 @@ public class db {
 	  public String hsggetoptiond(String ntable,String nzd,String nwbk){
 			StringBuffer imgStr = new StringBuffer();
 			imgStr.append("");
-			
+
 			String sql="";
 			sql="select "+nzd+" from "+ntable+" order by id desc";
 			System.out.print(sql);
@@ -116,14 +116,14 @@ public class db {
 				return imgStr.toString();
 			}
 		}
-	  
 
-	  
+
+
 	  public int hsgexecute(String sql){
-			
+
 			int i=0;
 			try{
-				 
+
 				 connect=DriverManager.getConnection(sConnStr,nsa,nmm);
 					Statement stmt=connect.createStatement();
 					i = stmt.executeUpdate(sql);
@@ -135,12 +135,12 @@ public class db {
 				}
 			}catch(Exception e){
 				e.printStackTrace();
-				return Constant.SYSTEM_ERROR; 
+				return Constant.SYSTEM_ERROR;
 			}
 		}
-	
+
 	  public synchronized static String getID() {
-			
+
 			Random random = new Random();
 			StringBuffer ret = new StringBuffer(20);
 			java.util.Date date = new java.util.Date();
@@ -149,10 +149,10 @@ public class db {
 			String rand = String.valueOf(Math.abs(random.nextInt()));
 			//ret.append(getDateStr());
 			ret.append(rand.substring(0,4));
-			
+
 			return ret.toString();
-		} 
-	  
+		}
+
 	  public static int getBetweenDayNumber(String dateA, String dateB) {
 			long dayNumber = 0;
 			//1小时=60分钟=3600秒=3600000
@@ -168,7 +168,7 @@ public class db {
 			}
 			return (int) dayNumber;
 		}
-	  
+
 	  public List getShouyebht(){
 			String sql = "select id,biaoti,shouyetupian from xinwentongzhi where leibie='站内新闻' order by id desc";
 			list = new ArrayList();
@@ -176,14 +176,14 @@ public class db {
 				connect=DriverManager.getConnection(sConnStr,nsa,nmm);
 				Statement stmt=connect.createStatement();
 				rs=stmt.executeQuery(sql);
-			
+
 				while(rs.next()){
 					List list2=new ArrayList();
 					list2.add(rs.getString(1));
 					list2.add(rs.getString(2));
 					list2.add(rs.getString(3));
 
-					
+
 					list.add(list2);
 				}
 				return list;
@@ -192,14 +192,14 @@ public class db {
 				return list;
 			}
 		}
-		
+
 		//读取新闻类别
-		
-		
+
+
 		public String getxwlb(){
 			StringBuffer imgStr = new StringBuffer();
 			imgStr.append("");
-			
+
 			String sql="";
 			sql="select distinct(leibie) as ss from xinwentongzhi where leibie<>'变幻图'";
 			System.out.print(sql);
@@ -207,7 +207,7 @@ public class db {
 				connect=DriverManager.getConnection(sConnStr,nsa,nmm);
 				Statement stmt=connect.createStatement();
 				rs=stmt.executeQuery(sql);
-			
+
 				while(rs.next()){
 					imgStr.append("<option value='"+rs.getString(1)+"'>"+rs.getString(1)+"</option>\n");
 				}
@@ -217,14 +217,14 @@ public class db {
 				return imgStr.toString();
 			}
 		}
-		
-		
-		
+
+
+
 		public String readzd(String ntable,String nzd,String tjzd,String tjz){
 			String sql = "select "+nzd+" from "+ntable+" where "+tjzd+"='"+tjz+"' ";
-			
+
 			try{
-				
+
 				connect=DriverManager.getConnection(sConnStr,nsa,nmm);
 				Statement stmt=connect.createStatement();
 				rs=stmt.executeQuery(sql);
@@ -239,20 +239,20 @@ public class db {
 				return null;
 			}
 		}
-		
+
 		public String getddnr(String nuser){
-			
+
 			String sql = "select shangpinmingcheng,goumaishuliang from goumaijilu where goumairen = '"+nuser+"' and issh='否' ";
 			System.out.print(sql);
-					
-			
+
+
 			String ddnr="";
 			try{
 				connect=DriverManager.getConnection(sConnStr,nsa,nmm);
 				Statement stmt=connect.createStatement();
 				rs=stmt.executeQuery(sql);
 				while(rs.next()){
-		
+
 						ddnr=ddnr+"商品名称："+rs.getString(1)+"，购买数量："+rs.getString(2)+"；\r\n";
 				}
 				return ddnr;
@@ -260,24 +260,24 @@ public class db {
 				e.printStackTrace();
 				return ddnr;
 			}
-		
-		
-			
+
+
+
 		}
-		
+
 		public List<HashMap> select(String sql)
-		{ 
+		{
 			System.out.println(sql);
 			List<HashMap> list = new ArrayList();
 			try {
 				connect=DriverManager.getConnection(sConnStr,nsa,nmm);
 				Statement stmt=connect.createStatement();
 				rs=stmt.executeQuery(sql);
-				
-			
+
+
 			    ResultSet rs = stmt.executeQuery(sql);
 			    ResultSetMetaData rsmd = rs.getMetaData();
-	           
+
 			    while(rs.next())
 			    {
 			    	HashMap map = new HashMap();
@@ -296,10 +296,10 @@ public class db {
 			    	list.add(map);
 			    }
 			    rs.close();
-			 
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				
+
 				if(sql.equals("show tables"))
 				list = select("select table_name from   INFORMATION_SCHEMA.tables");
 				else
@@ -307,7 +307,7 @@ public class db {
 			}
 			return list;
 		}
-		
+
 		public List<HashMap> select(String sql, int pageno, int rowsize) {
 			List<HashMap> list=new ArrayList<HashMap>();
 			List<HashMap> mlist=new ArrayList<HashMap>();
@@ -315,10 +315,10 @@ public class db {
 				list=this.select(sql);
 				int min = (pageno-1)*rowsize;
 				int max = pageno*rowsize;
-				
+
 				for(int i=0;i<list.size();i++)
 				{
-					
+
 					if(!(i<min||i>(max-1)))
 					{
 					mlist.add(list.get(i));
@@ -328,24 +328,24 @@ public class db {
 				re.printStackTrace();
 				throw re;
 			}
-			
-			
+
+
 			return mlist;
 		}
-	
+
 		public List<HashMap> getpinglun(String nbiao,String nid) {
-			
+
 			List<HashMap> list = new ArrayList();
 			try {
 				connect=DriverManager.getConnection(sConnStr,nsa,nmm);
 				Statement stmt=connect.createStatement();
 				String tsql="select * from pinglun where biao='"+nbiao+"' and xinwenID='"+nid+"'";
 				rs=stmt.executeQuery(tsql);
-				
-			
+
+
 			    ResultSet rs = stmt.executeQuery(tsql);
 			    ResultSetMetaData rsmd = rs.getMetaData();
-	           
+
 			    while(rs.next())
 			    {
 			    	HashMap map = new HashMap();
@@ -364,42 +364,42 @@ public class db {
 			    	list.add(map);
 			    }
 			    rs.close();
-			 
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				
-				
+
+
 			}
 			return list;
 		}
-		
+
 		 //	该方法返回一个table 用于流动图片
 		public String DynamicImage(int width,int height){
-	
+
 			StringBuffer imgStr = new StringBuffer();
 			StringBuffer thePics1 = new StringBuffer();
 			StringBuffer theLinks1 = new StringBuffer();
 			StringBuffer theTexts1 = new StringBuffer();
-		
+
 			imgStr.append("<div id=picViwer1  style='background-color: #ffffff' align=center></div><SCRIPT src='js/dynamicImage.js' type=text/javascript></SCRIPT>\n<script language=JavaScript>\n");
 			thePics1.append("var thePics1=\n'");
 			theLinks1.append("var theLinks1='");
 			theTexts1.append("var theTexts1='");
-			
+
 			List<HashMap> co = this.select("select * from xinwentongzhi where shouyetupian<>'' and shouyetupian<>'null'  and shouyetupian  like '%.jpg' order by id desc",1,6);
 			int i = co.size();
-			
-			int j = 0; 
+
+			int j = 0;
 			for(HashMap b:co)
 			{
-				j++; 
+				j++;
 			int id = Integer.parseInt(b.get("id").toString()) ;
 			String title = Info.subStr(b.get("biaoti").toString(), 21) ;
-			
+
 			String url = ""+b.get("shouyetupian");
-			
+
 			String purl = "xwtzDetail.do?id="+b.get("id");
-			
+
 			if(j!=i){
 			thePics1.append(url.replaceAll("\n", "")+"|");
 			theLinks1.append(purl+"|");
@@ -411,10 +411,10 @@ public class db {
 				theLinks1.append("xwtzDetail.do?id="+b.get("id"));
 				theTexts1.append(title);
 			}
-			
+
 			}
 		   thePics1.append("';");
-			
+
 			theLinks1.append("';");
 			theTexts1.append("';");
 			imgStr.append(thePics1+"\n");
@@ -423,8 +423,8 @@ public class db {
 			imgStr.append("\n setPic(thePics1,theLinks1,theTexts1,"+width+","+height+",'picViwer1');</script>");
 			return imgStr.toString();
 		}
-	
-	
+
+
 		//读取当前时间
 		public String getdate(){
 			String tt=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
@@ -434,7 +434,7 @@ public class db {
 		  String tt=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 			return tt;
 		}
-		
+
 		 //读取论坛文章数
 		public int getwzs(String nbk){
 
@@ -474,9 +474,9 @@ public class db {
 			if(msource.length()>length)
 			{
 				msource=msource.substring(0,length)+"...";
-			} 
+			}
 			return msource;
-		} 
+		}
 		public static String filterStrIgnoreCase(String source, String from, String to){
 	        String sourceLowcase=source.toLowerCase();
 	        String sub1,sub2,subLowcase1,subLowcase2;
@@ -484,7 +484,7 @@ public class db {
 	        int start=0,end;
 	        boolean done=true;
 	        if(source==null) return null;
-	        if(from==null||from.equals("")||to==null||to.equals("")) 
+	        if(from==null||from.equals("")||to==null||to.equals(""))
 	         return source;
 	        while(done){
 	         start=sourceLowcase.indexOf(from,start);
@@ -495,7 +495,7 @@ public class db {
 	         sub1=source.substring(0,start);
 	         end=sourceLowcase.indexOf(to,start);
 	         if(end==-1){
-	          end=sourceLowcase.indexOf("/>",start); 
+	          end=sourceLowcase.indexOf("/>",start);
 	          if(end==-1) {
 	           done=false;
 	          }
